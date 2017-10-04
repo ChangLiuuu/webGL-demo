@@ -2,7 +2,7 @@
  * Created by liuchang on 9/30/17.
  */
 
-var InitDemo = function() {
+var initDemo = function() {
     console.log('This is working');
     var canvas = document.getElementById('myCanvas');
     var gl = canvas.getContext('webgl');
@@ -90,7 +90,7 @@ var InitDemo = function() {
     gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
 
     /* put into data */
-    var positions = midPoint(200).pointArr;
+    var positions = midPoint(setRadius()).pointArr;
 
     // put data in that buffer by referencing it through the bind point
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW);
@@ -118,7 +118,7 @@ var InitDemo = function() {
         positionAttributeLocation, size, type, normalize, stride, offset);
 
     // set the resolution
-    gl.uniform2f(resolutionUniformLocation, gl.canvas.width, gl.canvas.height);
+    gl.uniform2f(resolutionUniformLocation, gl.canvas.width / 2, gl.canvas.height / 2);
 
     // draw
     var primitiveType = gl.POINTS;
@@ -161,4 +161,10 @@ var midPoint = function(r) {
     return {
         pointArr : pointArr
     }
+};
+
+var setRadius = function() {
+    var newValue = document.getElementById('radius').value;
+    document.getElementById('range').innerHTML = newValue;
+    return newValue;
 }

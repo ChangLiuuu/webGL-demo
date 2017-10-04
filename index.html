@@ -2,17 +2,23 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Canvas-demo</title>
+	<title>>Midpoint Circle Algorithm Demo</title>
 </head>
-<body onload="InitDemo()" style=" text-align: center ">
-<div>
-	<span> radius (0 - 400) :</span> <input id="radius" type="range" name="radius" min="0" max="400">
+<body onload="initDemo()" style="text-align: center">
+<section style="width: inherit">
+	<label for="radius"> <strong>Radius (0 - 299px) : &nbsp;</strong> </label>
+	<input id="radius" type="range" value="150" min="0" max="299" oninput="initDemo()">
+</section>
+<div style="position: absolute; right: 450px; top: 10px">
+	<strong id="range"></strong><strong>px</strong>
 </div>
+<br>
 
-	<canvas  id="myCanvas" width="600" height="400" >
-		Your browser doesn't support HTML5.
-	</canvas> <br>
-	<i>Demo above this text</i>
-	<script src="midpoint_circle.js"></script>
+<canvas id="myCanvas" width="600" height="600">
+	Your browser doesn't support HTML5.
+</canvas>
+<br>
+<i><strong>Midpoint Circle Algorithm Demo by Chang LIU</strong> above this text. <strong>600 x 600</strong> canvas </i>
+<script src="midpoint_circle.js"></script>
 </body>
 </html>
