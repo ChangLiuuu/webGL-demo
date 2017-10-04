@@ -4,15 +4,14 @@
 	<meta charset="UTF-8">
 	<title>>Midpoint Circle Algorithm Demo</title>
 </head>
-<body onload="initDemo()" style="text-align: center">
-<section style="width: inherit">
+<body onload="initDemo()" style="text-align: center; position: absolute">
+<section style="display: inline-block">
 	<label for="radius"> <strong>Radius (0 - 299px) : &nbsp;</strong> </label>
 	<input id="radius" type="range" value="150" min="0" max="299" oninput="initDemo()">
 </section>
-<div style="position: absolute; right: 450px; top: 10px">
+<div style="position: relative; left: 75%; top: -18px; width: 50px">
 	<strong id="range"></strong><strong>px</strong>
 </div>
-<br>
 
 <canvas id="myCanvas" width="600" height="600">
 	Your browser doesn't support HTML5.
