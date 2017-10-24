@@ -1,4 +1,3 @@
-
 var initDemo = function() {
     console.log('This is working');
     var canvas = document.getElementById('myCanvas');
@@ -87,7 +86,7 @@ var initDemo = function() {
     gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
 
     /* put into data */
-    var positions = midPoint(setRadius()).pointArr;
+    var positions = readFile();
 
     // put data in that buffer by referencing it through the bind point
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW);
@@ -106,7 +105,7 @@ var initDemo = function() {
     gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
 
     // tell the attribute how to get data out of positionBuffer (ARRAY_BUFFER)
-    var size = 3;          // 2 components per iteration, MUST be 1,2,3 or 4
+    var size = 3;          // 3 components per iteration, MUST be 1,2,3 or 4
     var type = gl.FLOAT;   // the data is 32bit floats
     var normalize = false; // don't normalize the data
     var stride = 0;        // 0 = move forward size * sizeof(type) each iteration to get the next position
@@ -124,44 +123,35 @@ var initDemo = function() {
     gl.drawArrays(primitiveType, offset2, count);
 };
 
-// midpoint circle algorithm
-var midPoint = function(r) {
-    var x = 0;
-    var y = r;
-    var m = 5 / 4 - r;
-    var pointArr = [];
 
-    while (y >= x) {
+// readFile
+var readFile = function() {
+    const readline = require('readline');
+    const fs = require('fs');
 
-        pointArr.push(x, y);
-        pointArr.push(x, -y);
-        pointArr.push(-x, y);
-        pointArr.push(-x, -y);
-        pointArr.push(y, x);
-        pointArr.push(-y, x);
-        pointArr.push(y, -x);
-        pointArr.push(-y, -x);
+    // read face-vertices.txt
+    const rl = readline.createInterface({
+        input: fs.createReadStream('face-vertices.txt')
+    });
 
-        if (m < 0) {
+    var vertices = [];
+    rl.on('line', function(line) {
+        const temp = line.split(',');
 
-            m += 2 * x + 3;
-            x++;
-        }
-        else {
-            m += 2 * (x - y) + 5;
-            x++;
-            y--;
-        }
+        vertices.push(temp);
+    });
 
-    }
-    console.log(pointArr);
-    return {
-        pointArr : pointArr
-    }
+    // read face-index.txt
+    const rl2 = readline.createInterface({
+        input: fs.createReadStream('face-index.txt')
+    });
+
+    const verticesAll = [];
+    rl2.on('line', function(line) {
+        const temp = line.split(',');
+        verticesAll.push(vertices[temp[0]],vertices[temp[1]],vertices[temp[2]]);
+    });
+    verticesAll.flatten()
 };
 
-var setRadius = function() {
-    var newValue = document.getElementById('radius').value;
-    document.getElementById('range').innerHTML = newValue;
-    return newValue;
-}
+
