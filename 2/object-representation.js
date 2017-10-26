@@ -1,3 +1,6 @@
+var readline = require('readline');
+var fs = require('fs');
+
 var initDemo = function() {
     console.log('This is working');
     var canvas = document.getElementById('myCanvas');
@@ -86,7 +89,8 @@ var initDemo = function() {
     gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
 
     /* put into data */
-    var positions = readFile();
+    var positions = readFile.verticesAll;
+    console.log(positions);
 
     // put data in that buffer by referencing it through the bind point
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW);
@@ -119,39 +123,68 @@ var initDemo = function() {
     // draw
     var primitiveType = gl.POINTS;
     var offset2 = 0;
-    var count = positions.length / 2;
+    var count = positions.length / 3;
     gl.drawArrays(primitiveType, offset2, count);
 };
 
 
 // readFile
-var readFile = function() {
-    const readline = require('readline');
-    const fs = require('fs');
-
+var vertices = [];
+function readFile() {
     // read face-vertices.txt
-    const rl = readline.createInterface({
-        input: fs.createReadStream('face-vertices.txt')
+    var rl = readline.createInterface({
+        input : fs.createReadStream('face-vertices.txt'),
     });
 
-    var vertices = [];
-    rl.on('line', function(line) {
-        const temp = line.split(',');
 
+    rl.on('line', function (line) {
+        var temp = line.split(',');
         vertices.push(temp);
+    }).on('close', function() {
+
     });
 
     // read face-index.txt
-    const rl2 = readline.createInterface({
-        input: fs.createReadStream('face-index.txt')
+    var rl2 = readline.createInterface({
+        input : fs.createReadStream('./face-index.txt')
     });
 
-    const verticesAll = [];
+    var verticesAll = [];
     rl2.on('line', function(line) {
         const temp = line.split(',');
-        verticesAll.push(vertices[temp[0]],vertices[temp[1]],vertices[temp[2]]);
+        verticesAll.concat(vertices[temp[0]], vertices[temp[1]], vertices[temp[2]]);
     });
-    verticesAll.flatten()
-};
+}
+readFile();
+console.log(vertices);
 
-
+// var ajax = function(url) {	//封装ajax
+//     if (window.XMLHttpRequest) {  //if解决兼容IE6问题，window解决报错问题
+//         var oAjax = new XMLHttpRequest(); // 1.创建ajax对象,不兼容IE6
+//     }else{
+//         var oAjax = new ActiveXObject("Microsoft.XMLHTTP");  //兼容IE6
+//     }
+//
+//     //open(方法，文件名，异步传输true)
+//     oAjax.open('GET',url,true);  //2.连接服务器
+//     //在文件名后添加动态时间是为了解决缓存问题 new Date().getTime()
+//
+//     oAjax.send();	//3.发送请求
+//
+//     //4.接收服务器返回数据
+//     oAjax.onreadystatechange = function () {	//使用onreadystatechange事件
+//         if (oAjax.readyState === 4) {	// 4表示解析（读取）完成，可以在客户端调用了
+//             if (oAjax.status === 200) {	// status 返回状态码,如果等于200，表示成功
+//
+//                 return {
+//                     file : oAjax.responseText
+//                 }
+//
+//             } else {
+//
+//                 console.log('err', oAjax.status);
+//             }
+//         }
+//     }
+// };
+//
