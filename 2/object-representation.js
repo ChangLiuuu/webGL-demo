@@ -156,6 +156,7 @@ function readFile() {
     });
 }
 readFile();
+
 console.log(vertices);
 
 // var ajax = function(url) {	//封装ajax
