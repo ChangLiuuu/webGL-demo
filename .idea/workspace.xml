@@ -96,8 +96,8 @@
       <file leaf-file-name="c++ version" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/2/c++ version">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="782">
-              <caret line="180" column="1" lean-forward="true" selection-start-line="180" selection-start-column="1" selection-end-line="180" selection-end-column="1" />
+            <state relative-caret-position="267">
+              <caret line="215" column="4" lean-forward="true" selection-start-line="215" selection-start-column="4" selection-end-line="215" selection-end-column="4" />
               <folding />
             </state>
           </provider>
@@ -172,7 +172,7 @@
   <component name="NodeModulesDirectoryManager">
     <handled-path value="$PROJECT_DIR$/2/node_modules" />
   </component>
-  <component name="ProjectFrameBounds" extendedState="1">
+  <component name="ProjectFrameBounds">
     <option name="x" value="25" />
     <option name="y" value="23" />
     <option name="width" value="1255" />
@@ -351,11 +351,13 @@
       <workItem from="1509050217464" duration="525000" />
       <workItem from="1509060084699" duration="9000" />
       <workItem from="1509063798138" duration="357000" />
+      <workItem from="1509150818754" duration="19000" />
+      <workItem from="1509236806108" duration="381000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="57727000" />
+    <option name="totallyTimeSpent" value="58127000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -367,7 +369,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="25" y="23" width="1255" height="773" extended-state="1" />
+    <frame x="25" y="23" width="1255" height="773" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1871961" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -805,8 +807,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/2/c++ version">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="782">
-          <caret line="180" column="1" lean-forward="true" selection-start-line="180" selection-start-column="1" selection-end-line="180" selection-end-column="1" />
+        <state relative-caret-position="267">
+          <caret line="215" column="4" lean-forward="true" selection-start-line="215" selection-start-column="4" selection-end-line="215" selection-end-column="4" />
           <folding />
         </state>
       </provider>

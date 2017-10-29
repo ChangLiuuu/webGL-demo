@@ -7,8 +7,10 @@
 #include <stdlib.h>
 #include <GLUT/glut.h>
 #include <iostream>
+#include <sstream>
 #include <fstream>
 #include <mach-o/dyld.h>
+
 
 using namespace std;
 
@@ -21,7 +23,7 @@ float ZoomVal = 2;
 // store the points of face-vertices
 float data[7061][3];
 //store the points of face-index
-int in[13806][3];
+int in[13804][3];
 
 void MenuValue(int option) {
     if (option == 1) {
@@ -100,14 +102,14 @@ void display(void) {
 
     //Display face - add your code here
 
-    glPointSize(1.0f);
-    glColor3f(1, 1, 0);
-    glBegin(GL_POINTS);
-    for (int i = 0; i < 13806; i++) {
-        glVertex3f(data[in[i][0]][0], data[in[i][0]][1], data[in[i][0]][2]);
-        glVertex3f(data[in[i][1]][0], data[in[i][1]][1], data[in[i][1]][2]);
-        glVertex3f(data[in[i][2]][0], data[in[i][2]][1], data[in[i][2]][2]);
-    }
+//    glPointSize(1.0f);
+//    glColor3f(1, 1, 0);
+//    glBegin(GL_POINTS);
+//    for (int i = 0; i < 13806; i++) {
+//        glVertex3f(data[in[i][0]][0], data[in[i][0]][1], data[in[i][0]][2]);
+//        glVertex3f(data[in[i][1]][0], data[in[i][1]][1], data[in[i][1]][2]);
+//        glVertex3f(data[in[i][2]][0], data[in[i][2]][1], data[in[i][2]][2]);
+//    }
     glEnd();
 
 
@@ -126,39 +128,55 @@ void fillArr() {
     printf("The path is: %s\n", path);
 
     // get lines and seperate by comma
-    string line;
     ifstream myfile("face-vertices.txt");
-
+    string line;
 
     for (int i = 0; i < 7061; i++) {
-        for (int j = 0; j < 3; j++) {
-            if (myfile.eof()) {
-                break;
-            }
-            getline(myfile, line, ',');
-            float temp = (float)atof(line.c_str());
-            data[i][j] = temp;
-//            cout<< data[i][j]<<" ";
+        getline(myfile, line);
+        if (myfile.eof()) {
+            break;
+        }
+        istringstream ss(line);
+        string token;
+        int j = 0;
+        while(getline(ss, token, ',')) {
+            data[i][j] = (float)atof(token.c_str());
+            cout<<data[i][j]<<" ";
+            j++;
 
         }
+
     }
     myfile.close();
 
     ifstream myfile2("face-index.txt");
     string line2;
-    for (int i = 0; i < 13806; i++) {
-        for (int j = 0; j < 3; j++) {
-            if (myfile2.eof()) {
-                break;
-            }
-            getline(myfile2, line2, ',');
-            int temp = atoi(line2.c_str());
-            in[i][j] = temp;
-//            cout<< in[i][j]<<" ";
+
+    for (int i = 0; i < 13804; i++) {
+        getline(myfile2, line2);
+        if (myfile2.eof()) {
+            break;
+        }
+        istringstream sst(line2);
+        string token2;
+        int j = 0;
+        while(getline(sst, token2, ',')) {
+            in[i][j] = atoi(token2.c_str());
+            cout<<in[i][j]<<" ";
+            j++;
 
         }
+
     }
     myfile2.close();
+    int m = 0;
+    for (int i = 0; i < 103804; i++) {
+        for (int j = 0; j < 3; j++) {
+//            arr[m++] = data[in[i][j]][0];
+//            arr[m++] = data[in[i][j]][1];
+//            arr[m++] = data[in[i][j]][2];
+        }
+    }
 
 
 }
@@ -195,7 +213,7 @@ int main(int argc, char** argv) {
     //Rotational
     glutMotionFunc(RotateObject);
     glutMouseFunc(MouseClick);
-
+    
     glutMainLoop();
 
     return 0;
