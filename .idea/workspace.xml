@@ -2,13 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e50cbc34-c6aa-43f7-bd2b-91b10c50a37f" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/3/index.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test/index.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test/raycasting.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test/style.css" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/assignment1/app.js" afterPath="$PROJECT_DIR$/3/midpoint_circle.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assignment1/midpoint_circle.js" afterPath="$PROJECT_DIR$/assignment1/midpoint_circle.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -34,11 +27,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/assignment1/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="76">
-              <caret line="4" column="9" lean-forward="true" selection-start-line="4" selection-start-column="9" selection-end-line="4" selection-end-column="9" />
+            <state relative-caret-position="190">
+              <caret line="10" column="10" lean-forward="true" selection-start-line="10" selection-start-column="10" selection-end-line="10" selection-end-column="10" />
               <folding />
             </state>
           </provider>
@@ -84,11 +77,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="midpoint_circle.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="midpoint_circle.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/assignment1/midpoint_circle.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="57">
-              <caret line="3" column="0" lean-forward="true" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+            <state relative-caret-position="331">
+              <caret line="34" column="6" lean-forward="true" selection-start-line="34" selection-start-column="6" selection-end-line="34" selection-end-column="6" />
               <folding />
             </state>
           </provider>
@@ -134,7 +127,6 @@
         <option value="$PROJECT_DIR$/2/index2.html" />
         <option value="$PROJECT_DIR$/2/object-representation.js" />
         <option value="$PROJECT_DIR$/2/c++ version" />
-        <option value="$PROJECT_DIR$/assignment1/midpoint_circle.js" />
         <option value="$PROJECT_DIR$/3/app.js" />
         <option value="$PROJECT_DIR$/3/midpoint_circle.js" />
         <option value="$PROJECT_DIR$/3/d.html" />
@@ -143,6 +135,7 @@
         <option value="$PROJECT_DIR$/test/raycasting.js" />
         <option value="$PROJECT_DIR$/3/index.html" />
         <option value="$PROJECT_DIR$/assignment1/index.html" />
+        <option value="$PROJECT_DIR$/assignment1/midpoint_circle.js" />
       </list>
     </option>
   </component>
@@ -163,8 +156,8 @@
     <handled-path value="$PROJECT_DIR$/2/node_modules" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="89" />
-    <option name="y" value="111" />
+    <option name="x" value="96" />
+    <option name="y" value="110" />
     <option name="width" value="1255" />
     <option name="height" value="773" />
   </component>
@@ -387,12 +380,12 @@
       <workItem from="1510797459460" duration="88000" />
       <workItem from="1510797560166" duration="7000" />
       <workItem from="1510797819383" duration="2049000" />
-      <workItem from="1510853091145" duration="617000" />
+      <workItem from="1510853091145" duration="716000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="62930000" />
+    <option name="totallyTimeSpent" value="63029000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -404,7 +397,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="89" y="111" width="1255" height="773" extended-state="0" />
+    <frame x="96" y="110" width="1255" height="773" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1871961" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -666,14 +659,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/assignment1/midpoint_circle.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="57">
-          <caret line="3" column="0" lean-forward="true" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="44">
@@ -708,8 +693,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/assignment1/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="4" column="9" lean-forward="true" selection-start-line="4" selection-start-column="9" selection-end-line="4" selection-end-column="9" />
+        <state relative-caret-position="190">
+          <caret line="10" column="10" lean-forward="true" selection-start-line="10" selection-start-column="10" selection-end-line="10" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assignment1/midpoint_circle.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="331">
+          <caret line="34" column="6" lean-forward="true" selection-start-line="34" selection-start-column="6" selection-end-line="34" selection-end-column="6" />
           <folding />
         </state>
       </provider>

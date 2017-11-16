@@ -17,22 +17,22 @@ var initDemo = function() {
 
 
     // mapping from resolution to -1 +1 clip space
-    var vertexShaderStr = "\
-    attribute vec2 a_position;\
-    uniform vec2 u_resolution;\
-    void main() {\
-        vec2 trans = a_position / u_resolution;\
-        gl_Position = vec4(trans, 0, 1);\
-        gl_PointSize = 1.0;\
-    }\
-    ";
+    var vertexShaderStr = `
+    attribute vec2 a_position;
+    uniform vec2 u_resolution;
+    void main() {
+        vec2 trans = a_position / u_resolution;
+        gl_Position = vec4(trans, 0, 1);
+        gl_PointSize = 1.0;
+    }
+    `;
 
-    var fragmentShaderStr = "\
-    precision mediump float;\
-    void main(){\
-        gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);\
-    }\
-    ";
+    var fragmentShaderStr = `
+    precision mediump float;
+    void main(){
+        gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
+    }
+    `;
 
     var vertexShader = gl.createShader(gl.VERTEX_SHADER);
     gl.shaderSource(vertexShader, vertexShaderStr);
