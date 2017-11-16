@@ -157,7 +157,7 @@ var midPoint = function(r) {
         }
 
     }
-    console.log(pointArr);
+
     return {
         pointArr : pointArr
     }

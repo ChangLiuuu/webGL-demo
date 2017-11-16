@@ -2,7 +2,7 @@
  * Created by liuchang on 9/30/17.
  */
 
-var InitDemo = function() {
+var initDemo = function() {
     console.log('This is working');
     var canvas = document.getElementById('myCanvas');
     var gl = canvas.getContext('webgl');
@@ -16,15 +16,14 @@ var InitDemo = function() {
     }
 
 
-    /* 从像素坐标转换到 0.0 到 1.0 --> 再把 0->1 转换 0->2 -- >  把 0->2 转换到 -1->+1 (裁剪空间) */
+    // mapping from resolution to -1 +1 clip space
     var vertexShaderStr = "\
-    attribute vec2 a_Position;\
+    attribute vec2 a_position;\
     uniform vec2 u_resolution;\
     void main() {\
-        vec2 zeroToOne = a_Position / u_resolution;\
-        vec2 zeroToTwo = zeroToOne * 2.0;\
-        vec2 clipSpace = zeroToTwo - 1.0;\
-        gl_Position = vec4(clipSpace, 0, 1);\
+        vec2 trans = a_position / u_resolution;\
+        gl_Position = vec4(trans, 0, 1);\
+        gl_PointSize = 1.0;\
     }\
     ";
 
@@ -49,6 +48,7 @@ var InitDemo = function() {
         alert(gl.getShaderInfoLog(fragmentShader));
     }
 
+
     /* create GLSL program and bind shader */
     var prg = gl.createProgram();
     gl.attachShader(prg, vertexShader);
@@ -60,97 +60,74 @@ var InitDemo = function() {
         gl.deleteProgram(prg);
     }
 
-    /* look up the location of the attribute for the program */
-    var positionAttribLocation = gl.getAttribLocation(prg, 'a_Position');
-    var resolutionUniformLocation = gl.getUniformLocation(prg, 'u_resolution');
-    gl.uniform2f(resolutionUniformLocation, gl.canvas.width, gl.canvas.height);
+    // look up where the vertex data needs to go.
+    var positionAttributeLocation = gl.getAttribLocation(prg, 'a_position');
 
-    /* create positionBuffer cause attributes get their data from buffers */
+    // look up uniform locations
+    var resolutionUniformLocation = gl.getUniformLocation(prg, 'u_resolution');
+
+    // create a buffer to put 2d clip space points in cause attributes get their data from buffers
     var positionBuffer = gl.createBuffer();
     if (!positionBuffer) {
         alert("Unable to initialize the vertexBuffer.");
         return;
     }
 
-    /* bind position position buffer */
+    // Bind it to ARRAY_BUFFER (think of it as ARRAY_BUFFER = positionBuffer)
     gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
-    //gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(midPoint(100).pointArr), gl.STATIC_DRAW);
 
-    /* put data in that buffer by referencing it through the bind point */
+    gl.uniform2f(resolutionUniformLocation, gl.canvas.width, gl.canvas.height);
 
-    /*
-     // three 2d points
-     var positions = [
-     0, 0,
-     0, 0.5,
-     0.7, 0
-     ];
-     width : 400   height 300
-     clip space      screen space
-     0, 0       ->   200, 150
-     0, 0.5     ->   200, 225
-     0.7, 0     ->   340, 150
-
-     */
-
-    // var positions = [
-    //     0, 0,
-    //     0, 0.5,
-    //     0.5, 0,
-    //     0.5 , 0,
-    //     0.5, 0.5,
-    //     1.0 , 1.0
-    // ];
-
-    var positions = midPoint(10).pointArr;
-
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW);
-
-    /* convert from clip space values to back into pixels(screen space)  */
-    //This tells WebGL the -1 +1 clip space maps to 0 <-> gl.canvas.width for x and 0 <-> gl.canvas.height for y.
-    gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
-
-    /* clear the canvas */
+    // clear the canvas
     gl.clearColor(175 / 225, 240 / 225, 245 / 225, 1.0);// set canvas's color
     gl.clear(gl.COLOR_BUFFER_BIT);
 
-    /* tell WebGL which shader program to execute */
+    // tell WebGL which shader program to execute
     gl.useProgram(prg);
 
-    /* first tell WebGL how to take data from the buffer we setup above and supply it to the attribute in the shader */
-    gl.enableVertexAttribArray(positionAttribLocation);
-
-    /* then need to specify how to pull the data out */
 
     // Bind the position buffer.
     gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
 
-    // Tell the attribute how to get data out of positionBuffer (ARRAY_BUFFER)
-    var size = 2;          // 2 components per iteration / Number of elements per attribute
+    /* put into data */
+    var positions = midPoint(setRadius()).pointArr;
+
+    // put data in that buffer by referencing it through the bind point
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW);
+
+    // clear the canvas
+    gl.clearColor(175 / 225, 240 / 225, 245 / 225, 1.0);
+    gl.clear(gl.COLOR_BUFFER_BIT);
+
+    // tell it to use our program (pair of shaders)
+    gl.useProgram(prg);
+
+    // turn on the attribute
+    gl.enableVertexAttribArray(positionAttributeLocation);
+
+    // bind the position buffer.
+    gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+
+    // tell the attribute how to get data out of positionBuffer (ARRAY_BUFFER)
+    var size = 2;          // 2 components per iteration, MUST be 1,2,3 or 4
     var type = gl.FLOAT;   // the data is 32bit floats
     var normalize = false; // don't normalize the data
     var stride = 0;        // 0 = move forward size * sizeof(type) each iteration to get the next position
     var offset = 0;        // start at the beginning of the buffer
     gl.vertexAttribPointer(
-        positionAttribLocation, size, type, normalize, stride, offset);
-    /*
-     a_position = {x: 0, y: 0, z: 0, w: 0}.
-     Above we set size = 2. Attributes default to 0, 0, 0, 1
-     so this attribute will get its first 2 values (x and y) from our buffer.
-     The z, and w will be the default 0 and 1 respectively.
-     */
+        positionAttributeLocation, size, type, normalize, stride, offset);
 
-    /* ask WebGL to execute our GLSL program */
+    // set the resolution
+    gl.uniform2f(resolutionUniformLocation, gl.canvas.width / 2, gl.canvas.height / 2);
 
-    var primitiveType2 = gl.POINTS;
+    // draw
+    var primitiveType = gl.POINTS;
     var offset2 = 0;
-    var count2 = positions.length / size;
-    gl.drawArrays(primitiveType2, offset2, count2);
+    var count = positions.length / 2;
+    gl.drawArrays(primitiveType, offset2, count);
+};
 
-
-    console.log(positions);
-}
-
+// midpoint circle algorithm
 var midPoint = function(r) {
     var x = 0;
     var y = r;
@@ -186,4 +163,8 @@ var midPoint = function(r) {
     }
 };
 
-
+var setRadius = function() {
+    var newValue = document.getElementById('radius').value;
+    document.getElementById('range').innerHTML = newValue;
+    return newValue;
+}
