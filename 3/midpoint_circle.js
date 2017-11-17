@@ -17,22 +17,22 @@ var initDemo = function() {
 
 
     // mapping from resolution to -1 +1 clip space
-    var vertexShaderStr = "\
-    attribute vec2 a_position;\
-    uniform vec2 u_resolution;\
-    void main() {\
-        vec2 trans = a_position / u_resolution;\
-        gl_Position = vec4(trans, 0, 1);\
-        gl_PointSize = 1.0;\
-    }\
-    ";
+    var vertexShaderStr = `
+    attribute vec3 a_position;
+    uniform vec3 u_resolution;
+    void main() {
+        vec3 trans = a_position / u_resolution;
+        gl_Position = vec4(trans, 1);
+        gl_PointSize = 1.0;
+    }
+    `;
 
-    var fragmentShaderStr = "\
-    precision mediump float;\
-    void main(){\
-        gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);\
-    }\
-    ";
+    var fragmentShaderStr = `
+    precision mediump float;
+    void main(){
+        gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
+    }
+    `;
 
     var vertexShader = gl.createShader(gl.VERTEX_SHADER);
     gl.shaderSource(vertexShader, vertexShaderStr);
@@ -76,7 +76,7 @@ var initDemo = function() {
     // Bind it to ARRAY_BUFFER (think of it as ARRAY_BUFFER = positionBuffer)
     gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
 
-    gl.uniform2f(resolutionUniformLocation, gl.canvas.width, gl.canvas.height);
+    gl.uniform3f(resolutionUniformLocation, gl.canvas.width, gl.canvas.height, 1000);
 
     // clear the canvas
     gl.clearColor(175 / 225, 240 / 225, 245 / 225, 1.0);// set canvas's color
@@ -109,7 +109,7 @@ var initDemo = function() {
     gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
 
     // tell the attribute how to get data out of positionBuffer (ARRAY_BUFFER)
-    var size = 2;          // 2 components per iteration, MUST be 1,2,3 or 4
+    var size = 3;          // 2 components per iteration, MUST be 1,2,3 or 4
     var type = gl.FLOAT;   // the data is 32bit floats
     var normalize = false; // don't normalize the data
     var stride = 0;        // 0 = move forward size * sizeof(type) each iteration to get the next position
@@ -118,12 +118,12 @@ var initDemo = function() {
         positionAttributeLocation, size, type, normalize, stride, offset);
 
     // set the resolution
-    gl.uniform2f(resolutionUniformLocation, gl.canvas.width / 2, gl.canvas.height / 2);
+    gl.uniform3f(resolutionUniformLocation, gl.canvas.width / 2, gl.canvas.height / 2, 1000);
 
     // draw
     var primitiveType = gl.POINTS;
     var offset2 = 0;
-    var count = positions.length / 2;
+    var count = positions.length / 3;
     gl.drawArrays(primitiveType, offset2, count);
 };
 
@@ -131,22 +131,22 @@ var initDemo = function() {
 var midPoint = function(r) {
     var x = 0;
     var y = r;
+    var z = r;
     var m = 5 / 4 - r;
     var pointArr = [];
 
     while (y >= x) {
 
-        pointArr.push(x, y);
-        pointArr.push(x, -y);
-        pointArr.push(-x, y);
-        pointArr.push(-x, -y);
-        pointArr.push(y, x);
-        pointArr.push(-y, x);
-        pointArr.push(y, -x);
-        pointArr.push(-y, -x);
+        pointArr.push(x, y, z);
+        pointArr.push(x, -y, z);
+        pointArr.push(-x, y, z);
+        pointArr.push(-x, -y, z);
+        pointArr.push(y, x, z);
+        pointArr.push(-y, x, z);
+        pointArr.push(y, -x, z);
+        pointArr.push(-y, -x, z);
 
         if (m < 0) {
-
             m += 2 * x + 3;
             x++;
         }
@@ -155,6 +155,7 @@ var midPoint = function(r) {
             x++;
             y--;
         }
+        z--;
 
     }
 
@@ -163,8 +164,13 @@ var midPoint = function(r) {
     }
 };
 
+var setSphere = function(r) {
+
+}
+
 var setRadius = function() {
     var newValue = document.getElementById('radius').value;
     document.getElementById('range').innerHTML = newValue;
     return newValue;
-}
+};
+
